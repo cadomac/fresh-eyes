@@ -14,11 +14,39 @@ http://scien.stanford.edu/class/psych221/projects/05/ofidaner/project_report.pdf
 http://scien.stanford.edu/pages/labsite/2005/psych221/projects/05/ofidaner/conv_img.m
 
 Note: use `web.archive.org` for old links
+
+
+| R' |     | r1 r2 r3 r4 r5 |   | R |
+| G' |     | g1 g2 g3 g4 g5 |   | G |
+| B' |  =  | b1 b2 b3 b4 b5 | * | B |
+| A' |     | a1 a2 a3 a4 a5 |   | A |
+| 1  |     | 0  0  0  0  1 |   | 1 |
+
+R' = r1*R + r2*G + r3*B + r4*A + r5
+G' = g1*R + g2*G + g3*B + g4*A + g5
+B' = b1*R + b2*G + b3*B + b4*A + b5
+A' = a1*R + a2*G + a3*B + a4*A + a5
+
+It is the sum of
+r1 times the old pixel's red R,
+r2 times the old pixel's green G,
+r3 times of the old pixel's blue B,
+r4 times the old pixel's alpha A,
+plus a shift r5.
+
+Identity Matrix:
+     R G B A W
+R' | 1 0 0 0 0 |
+G' | 0 1 0 0 0 |
+B' | 0 0 1 0 0 |
+A' | 0 0 0 1 0 |
+
 -->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0" height="0">
 	<defs>
 		<filter id="NoFilter">
-			<feColorMatrix values="1 0 0 0 0
+			<feColorMatrix values="
+			    1 0 0 0 0
 				0 1 0 0 0
 				0 0 1 0 0
 				0 0 0 1 0"/>
@@ -30,7 +58,7 @@ Note: use `web.archive.org` for old links
 		</filter>
 		<filter id="NewColor">
 			<feColorMatrix values="
-				3.00 -1.00  0.00  0 0
+				1.00 -1.00  0.00  0 0
 			   -1.00  2.50  0.00  0 0
 			   -0.00 -0.00  1.00  0 0
 				0     0     0     1 0"/>
@@ -48,11 +76,11 @@ Note: use `web.archive.org` for old links
 			   -1.00  2.50  0.00  0 0
 			   -0.00 -0.00  1.00  0 0
 				0     0     0     1 0"/>
-                        <feComponentTransfer>
-                                <feFuncR type="gamma" amplitude="1" exponent="1.5" offset="0"/>
-                                <feFuncG type="gamma" amplitude="1" exponent="1.5" offset="0"/>
-                                <feFuncB type="gamma" amplitude="1" exponent="1.5" offset="0"/>
-                        </feComponentTransfer>
+			<feComponentTransfer>
+					<feFuncR type="gamma" amplitude="1" exponent="1.5" offset="0"/>
+					<feFuncG type="gamma" amplitude="1" exponent="1.5" offset="0"/>
+					<feFuncB type="gamma" amplitude="1" exponent="1.5" offset="0"/>
+			</feComponentTransfer>
 		</filter>
 		<filter id="TrueColorD">
 			<feColorMatrix values="
