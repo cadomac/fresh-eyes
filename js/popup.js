@@ -13,6 +13,7 @@ var ul = document.createElement('ul'),
     vision = {
        NoFilter: '',
       'HueRotate': '6%',
+      'NewColor': '6%',
       'TrueColor': '6%',
       'TrueColorG': '6%',
       'TrueColorD': '6%',
