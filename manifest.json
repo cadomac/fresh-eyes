@@ -5,7 +5,7 @@
 	"author": {
 		"email": "cdmacdonalddev@proton.me"
 	},
-	"version": "1.0",
+	"version": "1.1",
 	"homepage_url": "https://github.com/fresh-eyes/fresh-eyes",
 	"action": {
 		"default_title": "FreshEyes",
