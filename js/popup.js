@@ -36,5 +36,17 @@ function handler(e) {
     li.classList.remove('current')
   })
   this.classList.add('current')
-  chrome.tabs.insertCSS(null, { code: 'html { -webkit-filter: url(#' + current + '); }' })
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    let currTab = tabs[0];
+    if (currTab) {
+      chrome.scripting.insertCSS(
+        { 
+          css: 'html { -webkit-filter: url(#' + current + '); }',
+          target: {
+            tabId: currTab.id
+          }
+        }
+      )
+    }
+  })
 }

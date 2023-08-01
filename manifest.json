@@ -1,16 +1,13 @@
 {
-"update_url": "https://clients2.google.com/service/update2/crx",
-
-	"manifest_version": 2,
-
+	"manifest_version": 3,
 	"name": "FreshEyes",
 	"description": "Adapts webpage for color blind people.",
-	"version": "1.0",
-	
-
+	"author": {
+		"email": "fresheyesextension@gmail.com"
+	},
+	"version": "1.1",
 	"homepage_url": "https://github.com/fresh-eyes/fresh-eyes",
-
-	"browser_action": {
+	"action": {
 		"default_title": "FreshEyes",
 		"default_popup": "popup.html",
 		"default_icon": {
@@ -18,28 +15,28 @@
 			"38": "img/action.png"
 		}
 	},
-	
 	"icons": {
 		"128": "img/icon.png",
 		"48": "img/icon_small.png"
 	},
-	
 	"web_accessible_resources": [
-		"img/filters.svg"
+		{
+			"resources": ["img/filters.svg"],
+			"matches": ["<all_urls>"]
+		}
 	],
-	
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
-			"css": [],
 			"js": ["js/filters.js"]
 		}
 	],
-
-	"permissions": [
-		"tabs",
-		"http://*/*",
+	"optional_host_permissions": [
 		"https://*/*",
+		"http://*/*"
+	],
+	"permissions": [
+		"scripting",
 		"activeTab"
 	]
 }
