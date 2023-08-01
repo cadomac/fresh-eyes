@@ -3,7 +3,7 @@
 	"name": "FreshEyes",
 	"description": "Adapts webpage for color blind people.",
 	"author": {
-		"email": "cdmacdonalddev@proton.me"
+		"email": "fresheyesextension@gmail.com"
 	},
 	"version": "1.1",
 	"homepage_url": "https://github.com/fresh-eyes/fresh-eyes",
@@ -28,7 +28,6 @@
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
-			"css": [],
 			"js": ["js/filters.js"]
 		}
 	],
@@ -37,7 +36,6 @@
 		"http://*/*"
 	],
 	"permissions": [
-		"tabs",
 		"scripting",
 		"activeTab"
 	]
