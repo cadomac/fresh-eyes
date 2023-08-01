@@ -31,10 +31,6 @@
 			"js": ["js/filters.js"]
 		}
 	],
-	"optional_host_permissions": [
-		"https://*/*",
-		"http://*/*"
-	],
 	"permissions": [
 		"scripting",
 		"activeTab"
