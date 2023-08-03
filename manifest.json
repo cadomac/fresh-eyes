@@ -22,14 +22,14 @@
 	"web_accessible_resources": [
 		{
 			"resources": ["img/filters.svg"],
-			"matches": ["<all_urls>"]
+			"matches": ["*://*/*"]
 		}
 	],
 	"background": {
 		"service_worker": "js/background.js"
 	},
 	"host_permissions": [
-		"<all_urls>"
+		"*://*/*"
 	],
 	"permissions": [
 		"scripting",
