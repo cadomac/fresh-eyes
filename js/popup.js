@@ -8,10 +8,18 @@ $.all = function (selector, context) {
   )
 }
 
-var ul = document.createElement('ul'),
-    current = 'NoFilter',
+let current;
+
+if (!localStorage.getItem("currentFilter")) {
+  localStorage.setItem("currentFilter", "NoFilter");
+  current = "NoFilter";
+} else {
+  current = localStorage.getItem("currentFilter");
+}
+
+let ul = document.createElement('ul'),
     vision = {
-       NoFilter: '',
+      "NoFilter": '',
       'HueRotate': '6%',
       'TrueColor': '6%',
       'TrueColorG': '6%',
@@ -20,11 +28,12 @@ var ul = document.createElement('ul'),
     }
 
 Object.keys(vision).forEach(function (el) {
-  var li = document.createElement('li')
+  let li = document.createElement('li')
   li.dataset['type'] = el
   li.textContent = el
   li.addEventListener('click', handler, false)
-  el == current && li.classList.add('current')
+  console.log(el, localStorage.getItem("currentFilter"))
+  el == localStorage.getItem("currentFilter") && li.classList.add('current')
   ul.appendChild(li)
 })
 
@@ -35,7 +44,8 @@ function handler(e) {
   $.all('li').forEach(function(li) {
     li.classList.remove('current')
   })
-  this.classList.add('current')
+  this.classList.add('current');
+  localStorage.setItem("currentFilter", current);
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     let currTab = tabs[0];
     if (currTab) {
