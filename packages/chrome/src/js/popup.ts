@@ -37,6 +37,14 @@ Object.keys(vision).forEach(function (el) {
   ul.appendChild(li)
 })
 
+const slider = document.createElement('input');
+slider.type = "range";
+slider.addEventListener('change', (e) => {
+  console.log(e.target.value)
+});
+
+document.body.appendChild(slider);
+
 document.body.appendChild(ul)
 
 function handler(e: Event) {
@@ -51,6 +59,12 @@ function handler(e: Event) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     let currTab = tabs[0];
     if (currTab) {
+      chrome.scripting.removeCSS({
+        css: localStorage.getItem("css") || "",
+        target: {
+          tabId: currTab.id,
+        }
+      })
       chrome.scripting.insertCSS(
         { 
           css: 'html { -webkit-filter: url(#' + current + '); }',
@@ -59,6 +73,7 @@ function handler(e: Event) {
           }
         }
       )
+      localStorage.setItem("css", `html { -webkit-filter: url(#${current}); }`)
     }
   })
 }
