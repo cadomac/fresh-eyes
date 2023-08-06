@@ -3,10 +3,10 @@ fetch(chrome.runtime.getURL('img/filters.svg'), {
 })
 .then(res => res.text())
 .then(str => {
-  const filter = new window.DOMParser().parseFromString(str, "text/xml").documentElement;
+  const filter: HTMLElement = new window.DOMParser().parseFromString(str, "text/xml").documentElement;
   filter.style.display = "none";
-  filter.width = 0;
-  filter.height = 0;
+  filter.style.width = "0";
+  filter.style.height = "0";
   document.body.appendChild(filter);
 })
 .catch((err) => {

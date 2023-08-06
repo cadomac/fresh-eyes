@@ -1,14 +1,14 @@
-function $(selector, context) {
+function $(selector: string, context?: Document) {
   return (context || document).querySelector(selector)
 }
  
-$.all = function (selector, context) {
+$.all = function (selector: string, context? : Document) {
   return Array.prototype.slice.call(
     (context || document).querySelectorAll(selector)
   )
 }
 
-let current;
+let current: string | null;
 
 if (!localStorage.getItem("currentFilter")) {
   localStorage.setItem("currentFilter", "NoFilter");
@@ -32,28 +32,27 @@ Object.keys(vision).forEach(function (el) {
   li.dataset['type'] = el
   li.textContent = el
   li.addEventListener('click', handler, false)
-  console.log(el, localStorage.getItem("currentFilter"))
   el == localStorage.getItem("currentFilter") && li.classList.add('current')
   ul.appendChild(li)
 })
 
 document.body.appendChild(ul)
 
-function handler(e) {
-  current = this.dataset['type']
+function handler(this: HTMLElement, e: Event) {
+  current = this.dataset['type'] ?? "";
   $.all('li').forEach(function(li) {
     li.classList.remove('current')
   })
   this.classList.add('current');
-  localStorage.setItem("currentFilter", current);
+  localStorage.setItem("currentFilter", current ?? "");
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     let currTab = tabs[0];
     if (currTab) {
       chrome.scripting.insertCSS(
         { 
-          css: 'html { -webkit-filter: url(#' + current + '); }',
+          css: 'html { -webkit-filter: url(#' + current ?? "" + '); }',
           target: {
-            tabId: currTab.id
+            tabId: currTab.id || 0
           }
         }
       )

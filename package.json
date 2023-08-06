@@ -1,0 +1,27 @@
+{
+  "name": "fresh-eyes",
+  "version": "1.1.0",
+  "description": "Browser extension that aims to help individuals with color-blindness be able to perceive color information better.",
+  "scripts": {
+    "build": ""
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "web",
+    "accessibility",
+    "color",
+    "blindness",
+    "vision"
+  ],
+  "author": "Cameron MacDonald",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chrome": "^0.0.243",
+    "copy-webpack-plugin": "^11.0.0",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}

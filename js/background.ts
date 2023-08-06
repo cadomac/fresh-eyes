@@ -3,7 +3,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete" && tab.active) {
     console.log("active")
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: {tabId: tab.id || 0},
       files: ["js/filters.js"]
     })
   }
