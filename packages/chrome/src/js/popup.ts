@@ -9,6 +9,7 @@ $.all = function (selector: string, context?: Document) {
 }
 
 let current: string;
+let currentMatrix;
 
 if (!localStorage.getItem("currentFilter")) {
   localStorage.setItem("currentFilter", "NoFilter");
@@ -32,15 +33,15 @@ Object.keys(vision).forEach(function (el) {
   li.dataset['type'] = el
   li.textContent = el
   li.addEventListener('click', handler, false)
-  console.log(el, localStorage.getItem("currentFilter"))
   el == localStorage.getItem("currentFilter") && li.classList.add('current')
   ul.appendChild(li)
 })
 
 const slider = document.createElement('input');
 slider.type = "range";
-slider.addEventListener('change', (e) => {
-  console.log(e.target.value)
+slider.addEventListener('input', async (e) => {
+  const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+  const response = await chrome.tabs.sendMessage(tab.id, {filter: current, value: e.target.value});
 });
 
 document.body.appendChild(slider);
@@ -62,18 +63,21 @@ function handler(e: Event) {
       chrome.scripting.removeCSS({
         css: localStorage.getItem("css") || "",
         target: {
-          tabId: currTab.id,
+          tabId: currTab.id ?? -1,
         }
       })
-      chrome.scripting.insertCSS(
-        { 
-          css: 'html { -webkit-filter: url(#' + current + '); }',
-          target: {
-            tabId: currTab.id ?? -1
+      if (current !== "NoFilter") {
+        chrome.scripting.insertCSS(
+          { 
+            css: 'html { -webkit-filter: url(#' + current + '); }',
+            target: {
+              tabId: currTab.id ?? -1
+            }
           }
-        }
-      )
-      localStorage.setItem("css", `html { -webkit-filter: url(#${current}); }`)
+        )
+        localStorage.setItem("css", `html { -webkit-filter: url(#${current}); }`)
+
+      }
     }
   })
 }
