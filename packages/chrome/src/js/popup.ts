@@ -10,6 +10,14 @@ $.all = function (selector: string, context?: Document) {
 
 let current: string;
 let currentMatrix;
+let filterValues = {
+  "TrueColor": 100,
+  "TrueColorG": 100,
+  "TrueColorD": 100,
+  "TrueColorN": 100,
+}
+
+localStorage.setItem("filterValues", JSON.stringify(filterValues));
 
 if (!localStorage.getItem("currentFilter")) {
   localStorage.setItem("currentFilter", "NoFilter");
@@ -42,6 +50,10 @@ slider.type = "range";
 slider.addEventListener('input', async (e) => {
   const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
   const response = await chrome.tabs.sendMessage(tab.id, {filter: current, value: e.target.value});
+  if (response.msg === "success") {
+    filterValues = {...filterValues, [current]: e.target.value}
+    localStorage.setItem("filterValues", JSON.stringify(filterValues))
+  }
 });
 
 document.body.appendChild(slider);
@@ -77,6 +89,13 @@ function handler(e: Event) {
         )
         localStorage.setItem("css", `html { -webkit-filter: url(#${current}); }`)
 
+      }
+      console.log(current)
+      if (current.includes("TrueColor")) {
+        slider.disabled = false;
+        slider.value = JSON.parse(localStorage.getItem("filterValues"))[current];
+      } else {
+        slider.disabled = true;
       }
     }
   })
