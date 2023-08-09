@@ -10,7 +10,7 @@ module.exports = {
       popup: path.resolve(__dirname, "../src/js", "popup.ts"),
    },
    output: {
-      path: path.join(__dirname, "../dist"),
+      path: path.join(__dirname, "../../../dist/chrome"),
       filename: "js/[name].js",
    },
    resolve: {
