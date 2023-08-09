@@ -2,6 +2,7 @@ name: Update Chrome Extension
 run-name: Pushing latest changes to Chrome Web Store
 on:
   push:
+    branches: [ $default-branch ]
     tags:
       - v*.*.*
 jobs:
@@ -14,9 +15,12 @@ jobs:
 
       - name: Build
         run: |-
-          # fill in your build steps here...
-          # we archive the dist folder and include SHA commit as the last step
-          zip -r chrome-extension-${{ github.event.pull_request.head.sha }}.zip dist
+          npm install -g pnpm
+          pnpm setup
+          pnpm install
+          pnpm build:chrome
+          cd dist/chrome
+          zip -r ../../chrome-extension-${{ github.event.pull_request.head.sha }}.zip *
 
       - name: Archive chrome-extension artifact
         uses: actions/upload-artifact@v2
@@ -36,7 +40,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: "16.10"
+          node-version: "18.17"
 
       - name: Download bundle artifact
         uses: actions/download-artifact@v3

@@ -5,6 +5,7 @@
   "scripts": {
     "build:chrome": "pnpm -C packages/chrome build",
     "build:firefox": "pnpm -C packages/firefox build",
+    "clean": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
