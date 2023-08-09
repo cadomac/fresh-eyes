@@ -1,35 +1,37 @@
-const normal = [
+const normal:ColorMatrix = [
   [1, 0, 0, 0, 0],
   [0, 1, 0, 0, 0],
   [0, 0, 1, 0, 0],
   [0, 0, 0, 1, 0],
 ];
 
-const trueColor = [
+const trueColor:ColorMatrix = [
   [3.00, -1.00, -0.00, 0, 0],
   [-1.00, 2.50, 0.00, 0, 0],
   [-0.00, -0.00, 1.00, 0, 0],
   [0, 0, 0, 1, 0],
 ];
 
-const trueColorN = [
+const trueColorN:ColorMatrix = [
   [2.67, -1.12, -0.00, 0, 0],
   [-1.09, 2.43, 0.00, 0, 0],
   [-0.00, -0.00, 1.00, 0, 0],
   [0, 0, 0, 1, 0],
 ];
 
-const matrices = {
-  normal,
+const matrices:{
+  [key:string]: ColorMatrix
+} = {
+  "normal": normal,
   "TrueColor": trueColor,
   "TrueColorG": trueColor,
   "TrueColorD": trueColor,
   "TrueColorN": trueColorN,
 }
 
-function constructMatrixFromValue(matrix, value) {
-  let newMatrix = [[],[],[],[]];
-  let valArr = [];
+function constructMatrixFromValue(matrix:ColorMatrix, value:number) {
+  let newMatrix:number[][] = [[],[],[],[]];
+  let valArr:number[] = [];
 
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
@@ -67,8 +69,8 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
   if (req.value && req.filter) {
     let targetFilter = document.querySelector(`#${req.filter}`);
     let valArr = constructMatrixFromValue(matrices[req.filter], req.value);
-    let targetFilterVals = targetFilter.querySelector(`feColorMatrix[type="matrix"]`);
-    targetFilterVals.setAttribute("values", valArr.join(" "))
+    let targetFilterVals = targetFilter!.querySelector(`feColorMatrix[type="matrix"]`);
+    targetFilterVals!.setAttribute("values", valArr.join(" "))
     sendResponse({msg: "success"});
   } else {
     sendResponse({msg: "malformed request"})
