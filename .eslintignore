@@ -9,3 +9,7 @@ dist
 *.json
 *.yaml
 *.yml
+
+*.png
+*.jpg
+*.svg
