@@ -5,9 +5,19 @@
   "scripts": {
     "build:chrome": "pnpm -C packages/chrome build",
     "build:firefox": "pnpm -C packages/firefox build",
+    "prepare": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "GNU General Public License"
+  "license": "GNU General Public License",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
+    "prettier": "3.0.1"
+  }
 }
