@@ -15,3 +15,7 @@ You can find the Chrome Extension on the [Web Store](https://chrome.google.com/w
 [Márcio Porto](https://www.linkedin.com/in/marcioporto/)
 
 [Ana George](https://www.linkedin.com/in/ana-george/)
+
+## License
+
+The code of this extension is licensed under the GNU General Public License v3.0 (GPLv3).
