@@ -1,0 +1,17 @@
+node_modules
+**/node_modules
+
+dist
+**/dist
+
+*.css
+*.html
+*.json
+*.yaml
+*.yml
+
+*.png
+*.jpg
+*.svg
+
+*.md
