@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "build:all": "pnpm build:chrome && build:firefox",
     "build:chrome": "pnpm -C packages/chrome build",
     "build:firefox": "pnpm -C packages/firefox build",
     "prepare": "husky install",
