@@ -42,6 +42,9 @@ jobs:
       EXTENSION_ID: <extension id her> 
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - uses: actions/setup-node@v2-beta
         with:
           node-version: "16.10"
@@ -57,5 +60,5 @@ jobs:
 
       - name: Upload step
         run: |-
-          chrome-webstore-upload upload --source chrome-extension-${{ github.sha }}.zip --extension-id ${{ env.EXTENSION_ID }} --client-id ${{ secrets.CI_GOOGLE_CLIENT_ID }} --client-secret ${{ secrets.CI_GOOGLE_CLIENT_SECRET }} --refresh-token ${{ secrets.CI_GOOGLE_REFRESH_TOKEN }}
+          chrome-webstore-upload upload --source chrome-extension-${{ github.event.pull_request.head.sha }}.zip --extension-id ${{ env.EXTENSION_ID }} --client-id ${{ secrets.CI_GOOGLE_CLIENT_ID }} --client-secret ${{ secrets.CI_GOOGLE_CLIENT_SECRET }} --refresh-token ${{ secrets.CI_GOOGLE_REFRESH_TOKEN }}
           --auto-publish
