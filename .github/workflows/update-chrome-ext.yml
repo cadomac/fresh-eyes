@@ -13,7 +13,8 @@ jobs:
 
       - name: Build
         run: |-
-          # fill in your build steps here...
+          npm install
+          npm run build:chrome
           # we archive the dist folder and include SHA commit as the last step
           cd dist/chrome
           zip -r chrome-extension-${{ github.event.pull_request.head.sha }}.zip ./*
