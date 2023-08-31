@@ -4,7 +4,7 @@ on:
     branches:
       - master
 env:
-  SHA: ${{ github.event.pull_request.head.sha }}
+  SHA: ${{ github.sha }}
 jobs:
   build-chrome-extension:
     name: Build Chrome extension artifact
@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: chrome-extension-${{ github.sha }}
-          path: chrome-extension-${{ github.event.pull_request.head.sha }}.zip
+          path: chrome-extension-${{ github.sha }}.zip
   # api usage reference:
   # * <https://developer.chrome.com/docs/webstore/using_webstore_api/>
   # * <https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md>
@@ -60,5 +60,5 @@ jobs:
 
       - name: Upload step
         run: |-
-          chrome-webstore-upload upload --source chrome-extension-${{ github.event.pull_request.head.sha }}.zip --extension-id ${{ env.EXTENSION_ID }} --client-id ${{ secrets.CI_GOOGLE_CLIENT_ID }} --client-secret ${{ secrets.CI_GOOGLE_CLIENT_SECRET }} --refresh-token ${{ secrets.CI_GOOGLE_REFRESH_TOKEN }}
+          chrome-webstore-upload upload --source chrome-extension-${{ github.sha }}.zip --extension-id ${{ secrets.EXTENSION_ID }} --client-id ${{ secrets.CI_GOOGLE_CLIENT_ID }} --client-secret ${{ secrets.CI_GOOGLE_CLIENT_SECRET }} --refresh-token ${{ secrets.CI_GOOGLE_REFRESH_TOKEN }}
           --auto-publish
