@@ -11,9 +11,11 @@ module.exports = {
       background: path.resolve(__dirname, "../src/js", "background.ts"),
       filters: path.resolve(__dirname, "../src/js", "filters.ts"),
       popup: path.resolve(__dirname, "../src/js", "popup.ts"),
+      svgGenerator: path.resolve(__dirname, "../src/js", "svg-generator.ts"),
+      filterDefs: path.resolve(__dirname, "../src/js", "filter-defs.ts"),
    },
    output: {
-      path: path.join(__dirname, "../../../dist/chrome"),
+      path: path.join(__dirname, "../../../dist/firefox"),
       filename: "js/[name].js",
    },
    resolve: {

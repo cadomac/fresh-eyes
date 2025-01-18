@@ -51,7 +51,29 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.94.0)
 
-  packages/firefox: {}
+  packages/firefox:
+    devDependencies:
+      '@types/chrome':
+        specifier: ^0.0.243
+        version: 0.0.243
+      '@types/firefox-webext-browser':
+        specifier: ^111.0.0
+        version: 111.0.5
+      copy-webpack-plugin:
+        specifier: ^11.0.0
+        version: 11.0.0(webpack@5.88.2)
+      ts-loader:
+        specifier: ^9.4.4
+        version: 9.4.4(typescript@5.1.6)(webpack@5.88.2)
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+      webpack:
+        specifier: ^5.88.2
+        version: 5.88.2(webpack-cli@5.1.4)
+      webpack-cli:
+        specifier: ^5.1.4
+        version: 5.1.4(webpack@5.88.2)
 
 packages:
 

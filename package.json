@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build:all": "pnpm build:chrome && build:firefox",
-    "build:chrome": "pnpm -C packages/chrome build",
-    "build:firefox": "pnpm -C packages/firefox build",
+    "build:all": "pnpm copy:shared && pnpm build:chrome && pnpm build:firefox",
+    "build:chrome": "pnpm copy:shared && pnpm -C packages/chrome build",
+    "build:firefox": "pnpm copy:shared && pnpm -C packages/firefox build",
+    "copy:shared": "cp -R packages/shared/* packages/firefox/src && cp -R packages/shared/* packages/chrome/src",
     "prepare": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,4 +1,12 @@
 node_modules
 /**/node_modules
 
+packages/*/src/img
+packages/*/src/css
+packages/*/src/js/svg-generator.ts
+packages/*/src/js/filter-defs.ts
+packages/*/src/types
+
+.DS_Store
+
 /**/dist
