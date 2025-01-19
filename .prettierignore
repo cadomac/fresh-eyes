@@ -13,6 +13,7 @@ dist
 .*
 
 *.md
+*.svg
 
 LICENSE
 

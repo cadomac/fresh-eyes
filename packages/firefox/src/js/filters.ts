@@ -8,7 +8,7 @@ if (filterSvg === null) {
   document.body.appendChild(svg);
 }
 
-chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((req, sender, sendResponse) => {
   if (req.value && req.filter) {
     const targetFilter = document.querySelector(`#${req.filter}`);
     const valArr = constructMatrixFromValue(matrices[req.filter], req.value);

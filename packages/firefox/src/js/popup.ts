@@ -1,7 +1,7 @@
 import { initFilterValues, vision } from "./filter-defs";
 
 let current: string;
-let filterValues = structuredClone(initFilterValues);
+let filterValues = JSON.parse(JSON.stringify(initFilterValues));
 
 if (!localStorage.getItem("filterValues")) {
   localStorage.setItem("filterValues", JSON.stringify(filterValues));
@@ -9,11 +9,11 @@ if (!localStorage.getItem("filterValues")) {
   filterValues = JSON.parse(localStorage.getItem("filterValues")!);
   Object.keys(filterValues).forEach(async (key) => {
     const val = filterValues[key];
-    const [tab] = await chrome.tabs.query({
+    const [tab] = await browser.tabs.query({
       active: true,
       lastFocusedWindow: true,
     });
-    const response = await chrome.tabs.sendMessage(tab.id ?? -1, {
+    const response = await browser.tabs.sendMessage(tab.id ?? -1, {
       filter: key,
       value: val,
     });
@@ -54,15 +54,15 @@ const slider = document.createElement("input");
 slider.type = "range";
 slider.id = "filter_slider";
 if (!current.includes("NoFilter") && !current.includes("HueRotate")) {
-  slider.value = filterValues[current].toString();
+  slider.value = filterValues[current]!.toString();
 }
 slider.addEventListener("input", async (e) => {
-  const [tab] = await chrome.tabs.query({
+  const [tab] = await browser.tabs.query({
     active: true,
     lastFocusedWindow: true,
   });
   if (e.target && e.target instanceof HTMLInputElement) {
-    const response = await chrome.tabs.sendMessage(tab.id ?? -1, {
+    const response = await browser.tabs.sendMessage(tab.id ?? -1, {
       filter: current,
       value: e.target.value,
     });
@@ -81,26 +81,35 @@ function handler(e: Event) {
     current = e.target.value ?? "";
   }
   localStorage.setItem("currentFilter", current);
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
     const currTab = tabs[0];
     if (currTab) {
-      chrome.scripting.removeCSS({
-        css: localStorage.getItem("css") || "",
-        target: {
-          tabId: currTab.id ?? -1,
-        },
-      });
-      if (current !== "NoFilter") {
-        chrome.scripting.insertCSS({
-          css: "html { -webkit-filter: url(#" + current + "); }",
+      browser.scripting
+        .removeCSS({
+          css: localStorage.getItem("css") || "",
           target: {
             tabId: currTab.id ?? -1,
           },
+        })
+        .catch((err) => {
+          console.error(err);
         });
-        localStorage.setItem(
-          "css",
-          `html { -webkit-filter: url(#${current}); }`,
-        );
+      if (current !== "NoFilter") {
+        const targetCSS = `body { 
+            -webkit-filter: url(#${current}); 
+            filter: url(#${current}); 
+          }`;
+        browser.scripting
+          .insertCSS({
+            css: targetCSS,
+            target: {
+              tabId: currTab.id ?? -1,
+            },
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+        localStorage.setItem("css", targetCSS);
       }
       if (!current.includes("NoFilter") && !current.includes("HueRotate")) {
         slider.disabled = false;

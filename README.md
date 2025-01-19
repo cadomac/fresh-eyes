@@ -19,3 +19,7 @@ You can find the Chrome Extension on the [Web Store](https://chrome.google.com/w
 ## License
 
 The code of this extension is licensed under the GNU General Public License v3.0 (GPLv3).
+
+## Development/Testing
+
+Refer to [DEVELOPMENT.md](DEVELOPMENT.md)

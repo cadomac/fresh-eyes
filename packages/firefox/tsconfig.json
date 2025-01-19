@@ -1,3 +1,14 @@
 {
-  "extends": "../../tsconfig.json"
+  "compilerOptions": {
+    "strict": true,
+    "module": "es6",
+    "moduleResolution": "bundler",
+    "target": "es6",
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "rootDir": "src",
+    "outDir": "/dist/js",
+    "noEmitOnError": true,
+    "typeRoots": [ "node_modules/@types" ]
+ }
 }

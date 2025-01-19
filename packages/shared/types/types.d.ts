@@ -1,0 +1,1 @@
+type ColorMatrix = number[][];
